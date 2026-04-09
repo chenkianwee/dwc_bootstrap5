@@ -1,0 +1,22 @@
+<div class="bg-white sticky-top overflow-y-auto py-lg-30 align-items-center">
+  {% if page.subtitle %}
+    <div class="sidebar-heading border p-1 bg-secondary text-white">{{ page.subtitle }}</div>
+  {% endif %}
+  {% if page.intro_image %}
+    <div class="text-center p-3 border-bottom">
+      <img src="{{ SITEURL }}/{{ page.intro_image }}" alt="My Photo" class="img-fluid" style="max-width: {{ page.image_width }};">
+    </div>
+  {% endif %}
+  <div class="list-group list-group-flush">
+    {% set curr_folder_path = page.source_path.rsplit('/', 1)[0] %}
+    {% set curr_page_name = page.source_path.rsplit('/', 1)[1] %}
+    {% for hidden_page in hidden_pages %}
+        {% set hidden_folder_path = hidden_page.source_path.rsplit('/', 1)[0] %}
+        {% set hidden_page_name = hidden_page.source_path.rsplit('/', 1)[1] %}
+        {% set hidden_page_title = hidden_page.title %}
+        {% if hidden_folder_path == curr_folder_path %}
+          <a class="list-group-item list-group-item-action list-group-item-light p-1 border" href="{{ SITEURL }}/{{ hidden_page.url }}">{{ hidden_page.title }}</a>
+        {% endif %}
+    {% endfor %}
+  </div>
+</div>

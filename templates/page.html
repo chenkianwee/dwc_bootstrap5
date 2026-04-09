@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block html_lang %}{{ page.lang }}{% endblock %}
+
+{% block title %}{{ SITENAME|striptags }} - {{ page.title|striptags }}{%endblock%}
+
+{% block head %}
+  {{ super() }}
+
+  {% import 'translations.html' as translations with context %}
+  {% if translations.entry_hreflang(page) %}
+    {{ translations.entry_hreflang(page) }}
+  {% endif %}
+{% endblock %}
+
+{% block nav_logo %}
+  {% if page.page_type | lower == "landing" %}
+    {{ SITEURL }}/{{ NAVBAR_BRAND_IMAGE }}
+  {% else %}
+    {{ SITEURL }}/{{ NAVBAR_BRAND_IMAGE_NON_LANDING }}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <article>
+    {% if page.page_type | lower == "landing" and page.intro_image %}
+      <header>
+          <div class="row gx-4 gx-lg-5 align-items-center my-5">
+            <div class="col-lg-7">
+                <img class="img-fluid rounded mb-4 mb-lg-0" src="{{ SITEURL }}/{{ page.intro_image }}" alt="Intro image">
+            </div>
+            <div class="col-lg-5">
+              <p>{{ page.content }}</p>
+            </div>
+          </div>
+      </header>
+    {% elif page.page_type | lower == "side_navbar" %}
+      <header>
+        <div class="py-3 text-left">
+          <h1>{{ page.title }}</h1> 
+        </div>
+      </header>
+      <div class="row gx-4 gx-lg-5">
+        <div class="col-lg-3 justify-content-center">
+          {% include 'side_navbar.html' %}
+        </div>
+        <div class="col-lg-7">
+          <p>{{ page.content }}</p>
+        </div>
+      </div>
+    {% else %}
+      <header>
+        <div class="py-3 text-left">
+          <h1>{{ page.title }}</h1> 
+        </div>
+      </header>
+      <div class="pe-lg-30 text-left">
+        {{ page.content }}
+      </div>
+    {% endif %}
+    <!-- {% import 'translations.html' as translations with context %} -->
+    <!-- {{ translations.translations_for(page) }} -->
+    {% if page.modified %}
+      <footer>
+        <p>
+          Last updated: {{ page.locale_modified }}
+        </p>
+      </footer>
+    {% endif %}
+    
+  </article>
+{% endblock %}
