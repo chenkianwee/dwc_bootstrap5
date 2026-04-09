@@ -1,5 +1,5 @@
 from pyscript import document, window
-
+# just something
 def highlight_nav(event=None):
     # 1. Get the current URL path
     current_href = window.location.href
