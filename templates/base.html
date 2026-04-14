@@ -15,8 +15,14 @@
       <link rel="stylesheet" href="https://pyscript.net/releases/2026.3.1/core.css">
       <script type="module" src="https://pyscript.net/releases/2026.3.1/core.js"></script>
       <!-- pagefind -->
-      <link href="{{ SITEURL }}/pagefind/pagefind-component-ui.css" rel="stylesheet">
-      <script src="{{ SITEURL }}/pagefind/pagefind-component-ui.js" type="module"></script>
+      {% if PAGEFIND %}
+        <link href="{{ SITEURL }}/pagefind/pagefind-component-ui.css" rel="stylesheet">
+        <script src="{{ SITEURL }}/pagefind/pagefind-component-ui.js" type="module"></script>
+      {% endif %}
+      <!-- goatcounter -->
+      {% if GOATCOUNTER_URL %}
+        {{ GOATCOUNTER_URL }}
+      {% endif %}
       {% if SITESUBTITLE %}
         <meta name="description" content="{{ SITESUBTITLE }}" />
       {% endif %}
@@ -100,8 +106,10 @@
                     {% endfor %}
                   {% endif %}
                 </ul>
-                <pagefind-modal-trigger></pagefind-modal-trigger>
-                <pagefind-modal></pagefind-modal>
+                {% if PAGEFIND %}
+                  <pagefind-modal-trigger></pagefind-modal-trigger>
+                  <pagefind-modal></pagefind-modal>
+                {% endif %}
               </div>
             </div>
           </nav>
